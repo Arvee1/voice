@@ -9,10 +9,14 @@ from audiorecorder import audiorecorder
 
 search = GoogleSearchAPIWrapper()
 
+def top5_results(query):
+    return search.results(query, 5)
+
 tool = Tool(
     name="google_search",
     description="Search Google for recent results.",
-    func=search.run,
+    func=top5_results,
+    # func=search.run,
 )
 
 st.title("👨‍💻 Wazzup!!!! I am Arvee's Personal Assistant?")
