@@ -65,6 +65,7 @@ if len(audio) > 0:
      st.write("what you said: " + text['text'])
      prompt = text['text']
 
+     result_voice = tool.run(prompt)
      # st.write(augment_query)
      # st.write("###AI Response###")
      # The mistralai/mixtral-8x7b-instruct-v0.1 model can stream output as it's running.
@@ -75,7 +76,7 @@ if len(audio) > 0:
          input={
              "top_k": 50,
              "top_p": 0.9,
-             "prompt": "Prompt: " + prompt,
+             "prompt": "Prompt: " + result_voice,
              "max_tokens": 512,
              "min_tokens": 0,
              "temperature": 0.6,
