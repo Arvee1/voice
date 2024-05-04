@@ -15,8 +15,8 @@ def top5_results(query):
 tool = Tool(
     name="google_search",
     description="Search Google for recent results.",
-    func=top5_results,
-    # func=search.run,
+    # func=top5_results,
+    func=search.run,
 )
 
 st.title("👨‍💻 Wazzup!!!! I am Arvee's Personal Assistant?")
