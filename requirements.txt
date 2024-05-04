@@ -9,3 +9,8 @@ SpeechRecognition
 replicate
 pyaudio
 streamlit-audiorecorder
+replicate
+langchain_community
+langchainhub
+langchain_openai
+langchain_core
