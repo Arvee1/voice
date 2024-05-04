@@ -1,5 +1,6 @@
 from langchain_community.utilities import GoogleSearchAPIWrapper
 from langchain_core.tools import Tool
+import streamlit as st
 
 search = GoogleSearchAPIWrapper()
 
@@ -9,4 +10,5 @@ tool = Tool(
     func=search.run,
 )
 
-tool.run("Obama's first name?")
+result = tool.run("Obama's first name?")
+st.write(result)
