@@ -7,6 +7,7 @@ import pyaudio
 import wave
 from audiorecorder import audiorecorder
 from langchain.memory import ConversationBufferMemory
+from langchain.chains import LLMChain
 
 memory = ConversationBufferMemory(return_messages=True)
 
@@ -18,7 +19,8 @@ llm = Replicate(
         "max_length": 500,
         "max_tokens": 512,
         "prompt_template": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
-        "top_p": 1
+        "top_p": 1,
+        "memory": memory,
     },
 )
 
@@ -54,8 +56,16 @@ if st.button("Submit to AI", type="primary"):
     # ):
     #run the model here
     memory.chat_memory.add_user_message("Prompt: " + prompt)
-    for event in llm("Prompt: " + prompt):
-        result_ai = result_ai + (str(event))
+    # for event in llm("Prompt: " + prompt):
+        # result_ai = result_ai + (str(event))
+    
+    result_ai = LLMChain(
+        llm=llm,
+        prompt="Prompt: " + prompt,
+        verbose=True,
+        memory=memory,
+    )
+    
     st.write(result_ai)
     memory.chat_memory.add_ai_message(result_ai)
 
