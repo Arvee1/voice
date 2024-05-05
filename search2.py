@@ -75,15 +75,15 @@ if st.button("Submit to AI", type="primary"):
         # },
     # ):
     #run the model here
-    memory.chat_memory.add_user_message("Prompt: " + prompt)
+    # memory.chat_memory.add_user_message("Prompt: " + prompt)
     # for event in llm("Prompt: " + prompt):
         # result_ai = result_ai + (str(event))
 
     # Notice that we just pass in the `question` variables - `chat_history` gets populated by memory
     # result_ai = conversation({"question": + prompt + ", " + result_ai})
 
-    result_ai = conversation({"question": prompt})
-    
+    # result_ai = conversation({"question": prompt})
+    result_ai = llm("Prompt: " + prompt + ", " + result)
     # result_ai = LLMChain(
         # llm=llm,
         # prompt="Prompt: " + prompt + " " + result_ai,
@@ -92,7 +92,7 @@ if st.button("Submit to AI", type="primary"):
     # )
     
     st.write(result_ai)
-    memory.chat_memory.add_ai_message(result_ai)
+    # memory.chat_memory.add_ai_message(result_ai)
 
 # This is the part where you can verbally ask about stuff
 audio = audiorecorder("Click to record", "Click to stop recording")
