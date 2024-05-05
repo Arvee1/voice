@@ -2,7 +2,8 @@ from langchain_community.utilities import GoogleSearchAPIWrapper
 from langchain_core.tools import Tool
 import streamlit as st
 import speech_recognition as sr
-import replicate
+# import replicate
+from langchain_community.llms import Replicate
 import pyaudio
 import wave
 from audiorecorder import audiorecorder
