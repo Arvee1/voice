@@ -9,6 +9,7 @@ import wave
 from audiorecorder import audiorecorder
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import LLMChain
+from langchain_core.prompts import PromptTemplate
 
 memory = ConversationBufferMemory(return_messages=True)
 
@@ -24,6 +25,16 @@ llm = Replicate(
         "memory": memory,
     },
 )
+
+template = """You are a nice chatbot having a conversation with a human.
+
+Previous conversation:
+{chat_history}
+
+New human question: {question}
+Response:"""
+
+prompt = PromptTemplate.from_template(template)
 
 def top5_results(query):
     return search.results(query, 5)
