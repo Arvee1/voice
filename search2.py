@@ -61,7 +61,7 @@ if st.button("Submit to AI", type="primary"):
     
     result_ai = LLMChain(
         llm=llm,
-        prompt="Prompt: " + prompt,
+        prompt="Prompt: " + prompt + " " + result_ai,
         verbose=True,
         memory=memory,
     )
