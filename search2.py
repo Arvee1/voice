@@ -26,14 +26,15 @@ llm = Replicate(
     },
 )
 
-template = """You are a nice chatbot having a conversation with a human.
+# template = """You are a nice chatbot having a conversation with a human.
 
-Previous conversation:
-{chat_history}
+# Previous conversation:
+# {chat_history}
+# 
+# New human question: {question}
+# Response:"""
 
-New human question: {question}
-Response:"""
-
+template = """You are a nice chatbot having a conversation with a human."""
 prompt = PromptTemplate.from_template(template)
 
 conversation = LLMChain(
