@@ -81,7 +81,7 @@ if st.button("Submit to AI", type="primary"):
     # Notice that we just pass in the `question` variables - `chat_history` gets populated by memory
     # result_ai = conversation({"question": + prompt + ", " + result_ai})
 
-    result_ai = conversation({"question": + prompt})
+    result_ai = conversation({"question": prompt ", " result})
     
     # result_ai = LLMChain(
         # llm=llm,
