@@ -6,8 +6,21 @@ import replicate
 import pyaudio
 import wave
 from audiorecorder import audiorecorder
+from langchain.memory import ConversationBufferMemory
+
+memory = ConversationBufferMemory(return_messages=True)
 
 search = GoogleSearchAPIWrapper()
+llm = Replicate(
+    model="meta/meta-llama-3-70b-instruct",
+    model_kwargs={
+        "temperature": 0.75, 
+        "max_length": 500,
+        "max_tokens": 512,
+        "prompt_template": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+        "top_p": 1
+    },
+)
 
 def top5_results(query):
     return search.results(query, 5)
@@ -25,22 +38,26 @@ prompt = st.text_area("Please enter what you want to know.")
 if st.button("Submit to AI", type="primary"):
     result = tool.run(prompt)
     result_ai = ""
-    for event in replicate.stream(
-        "meta/meta-llama-3-70b-instruct",
-        input={
-            "top_k": 50,
-            "top_p": 0.9,
-            "prompt": "Prompt: " + result,
-            "max_tokens": 512,
-            "min_tokens": 0,
-            "temperature": 0.6,
-            "prompt_template": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
-            "presence_penalty": 1.15,
-            "frequency_penalty": 0.2
-        },
-    ):
+    # for event in replicate.stream(
+        # "meta/meta-llama-3-70b-instruct",
+        # input={
+            # "top_k": 50,
+            # "top_p": 0.9,
+            # "prompt": "Prompt: " + result,
+            # "max_tokens": 512,
+            # "min_tokens": 0,
+            # "temperature": 0.6,
+            # "prompt_template": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+            # "presence_penalty": 1.15,
+            # "frequency_penalty": 0.2
+        # },
+    # ):
+    #run the model here
+    memory.chat_memory.add_user_message("Prompt: " + prompt)
+    for event in llm("Prompt: " + prompt):
         result_ai = result_ai + (str(event))
     st.write(result_ai)
+    memory.chat_memory.add_ai_message(result_ai)
 
 # This is the part where you can verbally ask about stuff
 audio = audiorecorder("Click to record", "Click to stop recording")
