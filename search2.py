@@ -36,6 +36,13 @@ Response:"""
 
 prompt = PromptTemplate.from_template(template)
 
+conversation = LLMChain(
+    llm=llm,
+    prompt=prompt,
+    verbose=True,
+    memory=memory
+)
+
 def top5_results(query):
     return search.results(query, 5)
 
@@ -70,13 +77,16 @@ if st.button("Submit to AI", type="primary"):
     memory.chat_memory.add_user_message("Prompt: " + prompt)
     # for event in llm("Prompt: " + prompt):
         # result_ai = result_ai + (str(event))
-    
-    result_ai = LLMChain(
-        llm=llm,
-        prompt="Prompt: " + prompt + " " + result_ai,
-        verbose=True,
-        memory=memory,
-    )
+
+    # Notice that we just pass in the `question` variables - `chat_history` gets populated by memory
+    result_ai = conversation({"question": + prompt + ", " + result_ai})
+
+    # result_ai = LLMChain(
+        # llm=llm,
+        # prompt="Prompt: " + prompt + " " + result_ai,
+        # verbose=True,
+        # memory=memory,
+    # )
     
     st.write(result_ai)
     memory.chat_memory.add_ai_message(result_ai)
