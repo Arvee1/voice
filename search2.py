@@ -2,7 +2,6 @@ from langchain_community.utilities import GoogleSearchAPIWrapper
 from langchain_core.tools import Tool
 import streamlit as st
 import speech_recognition as sr
-# import replicate
 from langchain_community.llms import Replicate
 import pyaudio
 import wave
@@ -10,39 +9,77 @@ from audiorecorder import audiorecorder
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import LLMChain
 from langchain_core.prompts import PromptTemplate
+from langchain_core.prompts import (
+    ChatPromptTemplate,
+    MessagesPlaceholder,
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
+
 
 memory = ConversationBufferMemory(return_messages=True)
 
 search = GoogleSearchAPIWrapper()
+
 llm = Replicate(
-    model="meta/meta-llama-3-70b-instruct",
-    model_kwargs={
-        "temperature": 0.75, 
-        "max_length": 500,
-        "max_tokens": 512,
-        "prompt_template": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
-        "top_p": 1,
-        # "memory": memory,
-    },
+    model="meta/meta-llama-3-8b-instruct",
+    model_kwargs={"temperature": 0.75, "max_length": 500, "top_p": 1},
 )
 
-template = """You are a nice chatbot having a conversation with a human.
+prompt = ChatPromptTemplate(
+    messages=[
+        SystemMessagePromptTemplate.from_template(
+            "You are a nice chatbot having a conversation with a human."
+        ),
+        # The `variable_name` here is what must align with memory
+        MessagesPlaceholder(variable_name="chat_history"),
+        # HumanMessagePromptTemplate.from_template("{question}")
+        ChatPromptTemplate.from_messages(
+            [
+                ("system", "You are a helpful AI bot."),
+                ("human", "{question}"),
+            ]
+        )
+    ]
+)
 
-Previous conversation:
-{chat_history}
-
-New human question: {question}
-Response:"""
-
-# template = """You are a nice chatbot having a conversation with a human."""
-prompt = PromptTemplate.from_template(template)
-
+memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 conversation = LLMChain(
     llm=llm,
     prompt=prompt,
-    verbose=True,
+    verbose=False,
     memory=memory
 )
+
+# llm = Replicate(
+    # model="meta/meta-llama-3-70b-instruct",
+    # model_kwargs={
+        # "temperature": 0.75, 
+        # "max_length": 500,
+        # "max_tokens": 512,
+        # "prompt_template": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+        # "top_p": 1,
+        # "memory": memory,
+    # },
+# )
+
+# template = """You are a nice chatbot having a conversation with a human.
+
+# Previous conversation:
+# {chat_history}
+
+# New human question: {question}
+# Response:"""
+
+# template = """You are a nice chatbot having a conversation with a human."""
+# prompt = PromptTemplate.from_template(template)
+
+# conversation = LLMChain(
+    # llm=llm,
+    # prompt=prompt,
+    # verbose=True,
+    # memory=memory
+# )
 
 def top5_results(query):
     return search.results(query, 5)
@@ -83,7 +120,19 @@ if st.button("Submit to AI", type="primary"):
     # result_ai = conversation({"question": + prompt + ", " + result_ai})
 
     # result_ai = conversation({"question": prompt})
-    result_ai = llm("Prompt: " + prompt + ", " + result)
+    
+    # this is the orig run to uncomment
+    # result_ai = llm("Prompt: " + prompt + ", " + result)
+    response_ai = conversation({"question": user_input + ", " + result})
+    # print(response_ai)
+    # json.loads()
+    # print(response_ai['content'])
+    # Assuming the 'chat_history' contains objects with a 'content' attribute
+    # for i, message in enumerate(response_ai['chat_history']):
+    #     print(f"Message {i + 1}: {message.content}")
+
+    # print(f"AI Response: {response_ai['text']}")
+
     # result_ai = LLMChain(
         # llm=llm,
         # prompt="Prompt: " + prompt + " " + result_ai,
@@ -92,6 +141,8 @@ if st.button("Submit to AI", type="primary"):
     # )
     
     st.write(result_ai)
+    st.write(f"AI Response: {response_ai['text']}")
+
     # memory.chat_memory.add_ai_message(result_ai)
 
 # This is the part where you can verbally ask about stuff
