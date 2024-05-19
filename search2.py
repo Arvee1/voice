@@ -42,17 +42,18 @@ from langchain_core.prompts import (
 
 search = GoogleSearchAPIWrapper()
 
+if "llama" not in st.session_state:
+    llm = Replicate(
+        model="meta/meta-llama-3-8b-instruct",
+        model_kwargs={"temperature": 0.75, "max_length": 500, "top_p": 1},
+    )
+    
+    st.session_state.conversation = ConversationChain(
+        llm=llm,
+        memory = ConversationBufferMemory(llm=llm),    
+    )
 
-llm = Replicate(
-    model="meta/meta-llama-3-8b-instruct",
-    model_kwargs={"temperature": 0.75, "max_length": 500, "top_p": 1},
-)
-
-st.session_state.conversation = ConversationChain(
-    llm=llm,
-    memory = ConversationBufferMemory(llm=llm),    
-)
-st.write("session state: " + st.session_state)
+# st.write(st.session_state)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
