@@ -59,11 +59,12 @@ if "llama" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-st.write(st.session_state.conversation)
+# st.write(st.session_state.conversation)
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
+        st.write(message["content"])
 
 # @st.cache_resource
 # def prompt_template():
