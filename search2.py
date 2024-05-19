@@ -53,7 +53,7 @@ if "llama" not in st.session_state:
         memory = ConversationBufferMemory(llm=llm),    
     )
 
-# st.write(st.session_state)
+st.write(st.session_state)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
