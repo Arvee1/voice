@@ -4,6 +4,19 @@ from streamlit_chat import message
 from langchain_community.llms import Replicate
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
+from langchain_community.utilities import GoogleSearchAPIWrapper
+from langchain_core.tools import Tool
+
+search = GoogleSearchAPIWrapper()
+def top5_results(query):
+    return search.results(query, 5)
+
+tool = Tool(
+    name="google_search",
+    description="Search Google for recent results.",
+    # func=top5_results,
+    func=search.run,
+)
 
 @st.cache_resource
 def load_chain():
@@ -40,7 +53,8 @@ def get_text():
 user_input = get_text()
 
 if user_input:
-    output = chain.run(input=user_input)
+    result = tool.run(user_input)
+    output = chain.run(input=user_input + ", " + result)
 
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
