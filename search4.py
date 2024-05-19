@@ -56,7 +56,7 @@ if user_input:
     result = tool.run(user_input)
     chain_prompt = user_input + " " + result
     st.write(chain_prompt)
-    output = chain.run(input=chain_prompt)
+    output = chain.run(input=user_input) | tool.run(user_input)
 
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
