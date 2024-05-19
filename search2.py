@@ -31,7 +31,6 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-
 @st.cache_resource
 def setup_memory():
     return ConversationBufferMemory(return_messages=True)
