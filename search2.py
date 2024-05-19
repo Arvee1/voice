@@ -42,7 +42,7 @@ from langchain_core.prompts import (
 
 search = GoogleSearchAPIWrapper()
 
-if "llama" not in st.session_state:
+if "meta" not in st.session_state:
     st.write("Create Replicate LLM")
     llm = Replicate(
         model="meta/meta-llama-3-8b-instruct",
@@ -64,8 +64,7 @@ if "messages" not in st.session_state:
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
-        st.write(message["content"])
-
+        
 # @st.cache_resource
 # def prompt_template():
     # return ChatPromptTemplate(
