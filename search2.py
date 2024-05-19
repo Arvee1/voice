@@ -124,7 +124,7 @@ if st.button("Submit to AI", type="primary"):
     # this is the orig run to uncomment
     # result_ai = llm("Prompt: " + prompt + ", " + result)
     response_ai = conversation({"question": prompt + ", " + result})
-    st.write("Question and Search Result: " + prompt + " , " + result)
+    # st.write("Question and Search Result: " + prompt + " , " + result)
     # response_ai = conversation({"question": prompt})
     
     # print(response_ai)
@@ -143,7 +143,8 @@ if st.button("Submit to AI", type="primary"):
         # memory=memory,
     # )
     
-    st.write(result_ai)
+    # st.write(result_ai)
+    st.write(response_ai)
     st.write(f"AI Response: {response_ai['text']}")
 
     # memory.chat_memory.add_ai_message(result_ai)
