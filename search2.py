@@ -7,6 +7,7 @@ import pyaudio
 import wave
 from audiorecorder import audiorecorder
 from langchain.memory import ConversationBufferMemory
+from langchain.chains import ConversationChain
 from langchain.chains import LLMChain
 from langchain_core.prompts import PromptTemplate
 from langchain_core.prompts import (
