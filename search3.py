@@ -18,7 +18,11 @@ def load_chain():
         )
     return chain
 
-chain = load_chain()
+if model not in st.session_state:
+    chain = load_chain()
+    st.session_state['model'] = chain
+
+# chain = load_chain()
 
 # From here down is all the StreamLit UI.
 st.set_page_config(page_title="LangChain Demo", page_icon=":robot:")
@@ -39,7 +43,8 @@ def get_text():
 user_input = get_text()
 
 if user_input:
-    output = chain.run(input=user_input)
+    # output = chain.run(input=user_input)
+    output = st.session_state.model.run(input=user_input)
 
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
