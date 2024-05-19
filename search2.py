@@ -16,16 +16,20 @@ from langchain_core.prompts import (
     HumanMessagePromptTemplate,
 )
 
-# @st.cache_resource
-# def get_messages():
-    # if "messages" not in st.session_state:
-        # st.session_state.messages = []
-    # return st.session_state.messages
+@st.cache_resource
+def call_conversation(prompt):
+    return conversation({"question": prompt})
 
-# st.session_state.messages = get_messages()
-# for message in st.session_state.messages:
-    # with st.chat_message(message["role"]):
-        # st.markdown(message["content"])
+@st.cache_resource
+def get_messages():
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+    return st.session_state.messages
+
+st.session_state.messages = get_messages()
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
 memory = ConversationBufferMemory(return_messages=True)
 
@@ -105,6 +109,7 @@ st.title("👨‍💻 Wazzup!!!! I am Arvee's Personal Assistant?")
 prompt = st.text_area("Please enter what you want to know.")
 
 if st.button("Submit to AI", type="primary"):
+    
     result = tool.run(prompt)
     result_ai = ""
     # for event in replicate.stream(
@@ -135,7 +140,8 @@ if st.button("Submit to AI", type="primary"):
     # result_ai = llm("Prompt: " + prompt + ", " + result)
     # response_ai = conversation({"question": prompt + ", " + result})
     # st.write("Question and Search Result: " + prompt + " , " + result)
-    response_ai = conversation({"question": prompt})
+    # response_ai = conversation({"question": prompt})
+    response_ai = call_conversation(prompt)
     
     # print(response_ai)
     # json.loads()
