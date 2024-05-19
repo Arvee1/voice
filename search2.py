@@ -42,7 +42,7 @@ prompt = ChatPromptTemplate(
         )
     ]
 )
-result_ai = ""
+# result_ai = ""
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 conversation = LLMChain(
     llm=llm,
@@ -95,8 +95,8 @@ st.title("👨‍💻 Wazzup!!!! I am Arvee's Personal Assistant?")
 prompt = st.text_area("Please enter what you want to know.")
 
 if st.button("Submit to AI", type="primary"):
-    # result = tool.run(prompt)
-    # result_ai = ""
+    result = tool.run(prompt)
+    result_ai = ""
     # for event in replicate.stream(
         # "meta/meta-llama-3-70b-instruct",
         # input={
@@ -123,8 +123,9 @@ if st.button("Submit to AI", type="primary"):
     
     # this is the orig run to uncomment
     # result_ai = llm("Prompt: " + prompt + ", " + result)
-    # response_ai = conversation({"question": prompt + ", " + result})
-    response_ai = conversation({"question": prompt})
+    response_ai = conversation({"question": prompt + ", " + result})
+    st.write("Question and Search Result: " + prompt + " , " + result)
+    # response_ai = conversation({"question": prompt})
     
     # print(response_ai)
     # json.loads()
