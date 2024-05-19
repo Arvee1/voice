@@ -216,7 +216,7 @@ if st.button("Submit to AI", type="primary"):
         st.markdown(llm_response)
     st.session_state.messages.append({"role": "assistant", "content": llm_response})
 
-    st.write(llm_response)
+    # st.write(llm_response)
     
     # print(response_ai)
     # json.loads()
