@@ -63,7 +63,14 @@ prompt = ChatPromptTemplate(
     ]
 )
 # result_ai = ""
-memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+
+@st.cache_resource
+def setup_memory_buffer():
+    return ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+
+memory = setup_memory_buffer()
+
+# memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 conversation = LLMChain(
     llm=llm,
     prompt=prompt,
