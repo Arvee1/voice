@@ -31,7 +31,14 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-memory = ConversationBufferMemory(return_messages=True)
+
+@st.cache_resource
+def setup_memory():
+    return ConversationBufferMemory(return_messages=True)
+
+memory = setup_memory()
+
+# memory = ConversationBufferMemory(return_messages=True)
 
 search = GoogleSearchAPIWrapper()
 
@@ -163,13 +170,13 @@ if st.button("Submit to AI", type="primary"):
     st.write(response_ai)
     st.write(f"AI Response: {response_ai['text']}")
 
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    response = f"Echo: {prompt}"
+    # st.session_state.messages.append({"role": "user", "content": prompt})
+    # response = f"Echo: {prompt}"
 
-    with st.chat_message("assistant"):
-        st.markdown(response)
+    # with st.chat_message("assistant"):
+        # st.markdown(response)
 
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    # st.session_state.messages.append({"role": "assistant", "content": response})
 
     # memory.chat_memory.add_ai_message(result_ai)
 
