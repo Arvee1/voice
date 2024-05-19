@@ -54,11 +54,13 @@ user_input = get_text()
 
 if user_input:
     result = tool.run(user_input)
-    output = chain.run(input=user_input + ", " + result)
+    chain_prompt = user_input + " " + result
+    st.write(chain_prompt)
+    output = chain.run(input=chain_prompt)
 
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
-    st.write(st.session_state)
+    # st.write(st.session_state)
 
 if st.session_state["generated"]:
 
