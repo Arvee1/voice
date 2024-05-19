@@ -58,7 +58,7 @@ if user_input:
 
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
-    # st.write(st.session_state)
+    st.write(st.session_state)
 
 if st.session_state["generated"]:
 
