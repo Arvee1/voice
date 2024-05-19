@@ -82,22 +82,22 @@ for message in st.session_state.messages:
 
 # prompt = prompt_template()
 
-prompt = ChatPromptTemplate(
-    messages=[
-        SystemMessagePromptTemplate.from_template(
-            "You are a nice chatbot having a conversation with a human."
-        ),
+# prompt = ChatPromptTemplate(
+    # messages=[
+        # SystemMessagePromptTemplate.from_template(
+            # "You are a nice chatbot having a conversation with a human."
+        # ),
         # The `variable_name` here is what must align with memory
-        MessagesPlaceholder(variable_name="chat_history"),
+        # MessagesPlaceholder(variable_name="chat_history"),
         # HumanMessagePromptTemplate.from_template("{question}")
-        ChatPromptTemplate.from_messages(
-            [
-                ("system", "You are a helpful AI bot."),
-                ("human", "{question}"),
-            ]
-        )
-    ]
-)
+        # ChatPromptTemplate.from_messages(
+            # [
+                # ("system", "You are a helpful AI bot."),
+                # ("human", "{question}"),
+            # ]
+        # )
+    # ]
+# )
 # result_ai = ""
 
 # @st.cache_resource
@@ -106,7 +106,7 @@ prompt = ChatPromptTemplate(
 
 # memory = setup_memory_buffer()
 
-memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+# memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
 # @st.cache_resource
 # def conv_chain():
@@ -118,12 +118,12 @@ memory = ConversationBufferMemory(memory_key="chat_history", return_messages=Tru
     # )
 # conversation = conv_chain()
 
-conversation = LLMChain(
-    llm=llm,
-    prompt=prompt,
-    verbose=False,
-    memory=memory
-)
+# conversation = LLMChain(
+    # llm=llm,
+    # prompt=prompt,
+    # verbose=False,
+    # memory=memory
+# )
 
 # llm = Replicate(
     # model="meta/meta-llama-3-70b-instruct",
