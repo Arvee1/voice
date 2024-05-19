@@ -96,7 +96,7 @@ prompt = st.text_area("Please enter what you want to know.")
 
 if st.button("Submit to AI", type="primary"):
     # result = tool.run(prompt)
-    result_ai = ""
+    # result_ai = ""
     # for event in replicate.stream(
         # "meta/meta-llama-3-70b-instruct",
         # input={
