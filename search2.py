@@ -16,9 +16,9 @@ from langchain_core.prompts import (
     HumanMessagePromptTemplate,
 )
 
-@st.cache_resource
-def call_conversation(prompt):
-    return conversation({"question": prompt})
+# @st.cache_resource
+# def call_conversation(prompt):
+    # return conversation({"question": prompt})
 
 @st.cache_resource
 def get_messages():
@@ -185,8 +185,8 @@ if st.button("Submit to AI", type="primary"):
     # result_ai = llm("Prompt: " + prompt + ", " + result)
     # response_ai = conversation({"question": prompt + ", " + result})
     # st.write("Question and Search Result: " + prompt + " , " + result)
-    # response_ai = conversation({"question": prompt})
-    response_ai = call_conversation(prompt)
+    response_ai = conversation({"question": prompt})
+    # response_ai = call_conversation(prompt)
     
     # print(response_ai)
     # json.loads()
