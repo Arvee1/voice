@@ -1,9 +1,8 @@
 """Python file to serve as the frontend"""
 import streamlit as st
 from streamlit_chat import message
-
+from langchain_community.llms import Replicate
 from langchain.chains import ConversationChain
-from langchain.llms import OpenAI
 
 
 def load_chain():
