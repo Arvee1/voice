@@ -10,7 +10,11 @@ def load_chain():
             model="meta/meta-llama-3-8b-instruct",
             model_kwargs={"temperature": 0.75, "max_length": 500, "top_p": 1},
         )
-    chain = ConversationChain(llm=llm)
+    # chain = ConversationChain(llm=llm)
+    chain = ConversationChain(
+            llm=llm,
+            memory = ConversationBufferMemory(llm=llm),
+        )
     return chain
 
 chain = load_chain()
