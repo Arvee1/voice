@@ -123,9 +123,9 @@ if st.button("Submit to AI", type="primary"):
     
     # this is the orig run to uncomment
     # result_ai = llm("Prompt: " + prompt + ", " + result)
-    response_ai = conversation({"question": prompt + ", " + result})
+    # response_ai = conversation({"question": prompt + ", " + result})
     # st.write("Question and Search Result: " + prompt + " , " + result)
-    # response_ai = conversation({"question": prompt})
+    response_ai = conversation({"question": prompt})
     
     # print(response_ai)
     # json.loads()
