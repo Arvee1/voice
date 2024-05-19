@@ -4,7 +4,7 @@ from streamlit_chat import message
 from langchain_community.llms import Replicate
 from langchain.chains import ConversationChain
 
-
+@st.cache_resource
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
     llm = Replicate(
