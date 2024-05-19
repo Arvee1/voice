@@ -16,7 +16,7 @@ from langchain_core.prompts import (
     HumanMessagePromptTemplate,
 )
 
-@st.cache_resource
+# @st.cache_resource
 # def get_messages():
     # if "messages" not in st.session_state:
         # st.session_state.messages = []
