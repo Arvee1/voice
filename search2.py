@@ -163,6 +163,14 @@ if st.button("Submit to AI", type="primary"):
     st.write(response_ai)
     st.write(f"AI Response: {response_ai['text']}")
 
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    response = f"Echo: {prompt}"
+
+    with st.chat_message("assistant"):
+        st.markdown(response)
+
+    st.session_state.messages.append({"role": "assistant", "content": response})
+
     # memory.chat_memory.add_ai_message(result_ai)
 
 # This is the part where you can verbally ask about stuff
