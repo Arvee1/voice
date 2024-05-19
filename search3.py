@@ -3,6 +3,7 @@ import streamlit as st
 from streamlit_chat import message
 from langchain_community.llms import Replicate
 from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferMemory
 
 def load_chain():
     """Logic for loading the chain you want to use should go here."""
