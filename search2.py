@@ -42,7 +42,7 @@ prompt = ChatPromptTemplate(
         )
     ]
 )
-
+result_ai = ""
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 conversation = LLMChain(
     llm=llm,
