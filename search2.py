@@ -74,7 +74,7 @@ memory = setup_memory_buffer()
 
 @st.cache_resource
 def conv_chain():
-    return conversation = LLMChain(
+    return LLMChain(
         llm=llm,
         prompt=prompt,
         verbose=False,
