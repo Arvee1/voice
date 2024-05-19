@@ -166,7 +166,7 @@ if st.button("Submit to AI", type="primary"):
     # )
     
     # st.write(result_ai)
-    st.write(response_ai)
+    # st.write(response_ai)
     st.write(f"AI Response: {response_ai['text']}")
 
     # st.session_state.messages.append({"role": "user", "content": prompt})
