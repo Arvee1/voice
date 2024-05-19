@@ -16,6 +16,17 @@ from langchain_core.prompts import (
     HumanMessagePromptTemplate,
 )
 
+@st.cache_resource
+# def get_messages():
+    # if "messages" not in st.session_state:
+        # st.session_state.messages = []
+    # return st.session_state.messages
+
+# st.session_state.messages = get_messages()
+# for message in st.session_state.messages:
+    # with st.chat_message(message["role"]):
+        # st.markdown(message["content"])
+
 memory = ConversationBufferMemory(return_messages=True)
 
 search = GoogleSearchAPIWrapper()
@@ -145,12 +156,6 @@ if st.button("Submit to AI", type="primary"):
     # st.write(result_ai)
     st.write(response_ai)
     st.write(f"AI Response: {response_ai['text']}")
-
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
-
-    # While processing
-    st.session_state.messages.append({"role" : "assistant", "content" : response_ai['text']})
 
     # memory.chat_memory.add_ai_message(result_ai)
 
