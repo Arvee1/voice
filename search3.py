@@ -18,9 +18,9 @@ def load_chain():
         )
     return chain
 
-if model not in st.session_state:
+if chain not in st.session_state:
     chain = load_chain()
-    st.session_state['model'] = chain
+    st.session_state['chain'] = chain
 
 # chain = load_chain()
 
@@ -44,7 +44,7 @@ user_input = get_text()
 
 if user_input:
     # output = chain.run(input=user_input)
-    output = st.session_state.model.run(input=user_input)
+    output = st.session_state.chain.run(input=user_input)
 
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
