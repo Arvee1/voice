@@ -15,3 +15,5 @@ langchainhub
 langchain_openai
 langchain_core
 google-api-python-client
+langchain
+streamlit-chat
