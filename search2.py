@@ -71,12 +71,23 @@ def setup_memory_buffer():
 memory = setup_memory_buffer()
 
 # memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-conversation = LLMChain(
-    llm=llm,
-    prompt=prompt,
-    verbose=False,
-    memory=memory
-)
+
+@st.cache_resource
+def conv_chain():
+    return conversation = LLMChain(
+        llm=llm,
+        prompt=prompt,
+        verbose=False,
+        memory=memory
+    )
+conversation = conv_chain()
+
+# conversation = LLMChain(
+    # llm=llm,
+    # prompt=prompt,
+    # verbose=False,
+    # memory=memory
+# )
 
 # llm = Replicate(
     # model="meta/meta-llama-3-70b-instruct",
