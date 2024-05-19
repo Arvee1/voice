@@ -38,7 +38,7 @@ from langchain_core.prompts import (
 
 # memory = setup_memory()
 
-memory = ConversationBufferMemory(return_messages=True)
+# memory = ConversationBufferMemory(return_messages=True)
 
 search = GoogleSearchAPIWrapper()
 
