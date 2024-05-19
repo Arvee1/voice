@@ -20,16 +20,16 @@ from langchain_core.prompts import (
 # def call_conversation(prompt):
     # return conversation({"question": prompt})
 
-@st.cache_resource
-def get_messages():
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
-    return st.session_state.messages
+# @st.cache_resource
+# def get_messages():
+    # if "messages" not in st.session_state:
+        # st.session_state.messages = []
+    # return st.session_state.messages
 
-st.session_state.messages = get_messages()
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+# st.session_state.messages = get_messages()
+# for message in st.session_state.messages:
+    # with st.chat_message(message["role"]):
+        # st.markdown(message["content"])
 
 # @st.cache_resource
 # def setup_memory():
@@ -45,6 +45,20 @@ llm = Replicate(
     model="meta/meta-llama-3-8b-instruct",
     model_kwargs={"temperature": 0.75, "max_length": 500, "top_p": 1},
 )
+
+st.session_state.conversation = ConversationChain(
+    llm=llm,
+    memory = ConversationBufferMemory(llm=llm),    
+)
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+st.write(st.session_state.conversation)
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
 # @st.cache_resource
 # def prompt_template():
@@ -155,8 +169,8 @@ prompt = st.text_area("Please enter what you want to know.")
 
 if st.button("Submit to AI", type="primary"):
     
-    result = tool.run(prompt)
-    result_ai = ""
+    # result = tool.run(prompt)
+    # result_ai = ""
     # for event in replicate.stream(
         # "meta/meta-llama-3-70b-instruct",
         # input={
@@ -183,10 +197,25 @@ if st.button("Submit to AI", type="primary"):
     
     # this is the orig run to uncomment
     # result_ai = llm("Prompt: " + prompt + ", " + result)
-    response_ai = conversation({"question": prompt + ", " + result})
+    
+    # response_ai = conversation({"question": prompt + ", " + result})
+    
     # st.write("Question and Search Result: " + prompt + " , " + result)
     # response_ai = conversation({"question": prompt})
     # response_ai = call_conversation(prompt)
+
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    with st.chat_message("assistant"):
+        llm_response = st.session_state.conversation.run(
+            prompt,
+        )
+        st.markdown(llm_response)
+    st.session_state.messages.append({"role": "assistant", "content": llm_response})
+
+    st.write(llm_response)
     
     # print(response_ai)
     # json.loads()
@@ -206,7 +235,8 @@ if st.button("Submit to AI", type="primary"):
     
     # st.write(result_ai)
     # st.write(response_ai)
-    st.write(f"AI Response: {response_ai['text']}")
+    
+    # st.write(f"AI Response: {response_ai['text']}")
 
     # st.session_state.messages.append({"role": "user", "content": prompt})
     # response = f"Echo: {prompt}"
