@@ -18,9 +18,9 @@ def load_chain():
         )
     return chain
 
-if chain not in st.session_state:
-    chain = load_chain()
-    st.session_state['chain'] = chain
+if model not in st.session_state:
+    model = load_chain()
+    st.session_state['model'] = model
 
 # chain = load_chain()
 
