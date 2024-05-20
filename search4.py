@@ -87,7 +87,7 @@ def load_chain():
     # chain = ConversationChain(llm=llm)
     chain = ConversationChain(
             llm=llm,
-            memory = ConversationBufferWindowMemory(k=5),
+            memory = ConversationBufferWindowMemory(k=2),
             # memory = ConversationBufferMemory(llm=llm),
         )
     return chain
@@ -123,7 +123,7 @@ web_research_retriever = WebResearchRetriever.from_llm(
 )
 
 # Initialize question-answering chain with sources retrieval
-# qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_research_retriever)
+qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_research_retriever)
 
 # From here down is all the StreamLit UI.
 # st.set_page_config(page_title="LangChain Demo", page_icon=":robot:")
@@ -152,7 +152,7 @@ if user_input:
           n_results=20,
     )
     augment_query = str(query_results["documents"])
-    user_input = user_input + ", " + augment_query
+    chain_input = user_input + ", " + augment_query
      
     user_input_question = "Who is the president of the United States?"
     # Query the QA chain with the user input question
@@ -165,7 +165,7 @@ if user_input:
     # chain_prompt = user_input + " " + result
     # st.write(chain_prompt)
     # output = chain.run(input=user_input + ", " + result)
-    output = chain.run(input=user_input)
+    output = chain.run(input=chain_input)
     
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
