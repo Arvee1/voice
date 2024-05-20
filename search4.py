@@ -150,7 +150,7 @@ if user_input:
           query_texts=[user_input],
           # include=["documents", "embeddings"],
           include=["documents"],
-          n_results=10,
+          n_results=15,
     )
     augment_query = str(query_results["documents"])
     chain_input = user_input + ", " + augment_query
