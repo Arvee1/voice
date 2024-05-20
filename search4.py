@@ -12,17 +12,6 @@ from langchain.vectorstores import Chroma
 
 search = GoogleSearchAPIWrapper()
 
-# Setup a Retriever
-web_research_retriever = WebResearchRetriever.from_llm(
-    vectorstore=vectorstore,
-    llm=llm,
-    search=search,
-)
-
-# Setup a Vector Store for embeddings using Chroma DB
-vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=”./chroma_db_oai”)
-
-
 def top5_results(query):
     return search.results(query, 5)
 
@@ -48,6 +37,15 @@ def load_chain():
     return chain
 
 chain = load_chain()
+# Setup a Vector Store for embeddings using Chroma DB
+vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=”./chroma_db_oai”)
+
+# Setup a Retriever
+web_research_retriever = WebResearchRetriever.from_llm(
+    vectorstore=vectorstore,
+    llm=llm,
+    search=search,
+)
 
 # From here down is all the StreamLit UI.
 # st.set_page_config(page_title="LangChain Demo", page_icon=":robot:")
