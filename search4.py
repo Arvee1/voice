@@ -53,11 +53,12 @@ def get_text():
 user_input = get_text()
 
 if user_input:
-    result = tool.run(user_input)
+    # result = tool.run(user_input)
     # chain_prompt = user_input + " " + result
     # st.write(chain_prompt)
-    output = chain.run(input=user_input + ", " + result)
-
+    # output = chain.run(input=user_input + ", " + result)
+    output = chain.run(input=user_input)
+    
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
     # st.write(st.session_state)
