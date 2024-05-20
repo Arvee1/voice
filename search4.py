@@ -42,7 +42,6 @@ collection = client.get_or_create_collection(
  )
 
 # Load VectorDB
-# if st.sidebar.button("Load OFSC Facsheets into Vector DB if loading the page for the first time.", type="primary"):
 @st.cache_resource
 def create_vector():
       with open("budget_ai.txt") as f:
@@ -127,7 +126,7 @@ qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_resear
 
 # From here down is all the StreamLit UI.
 # st.set_page_config(page_title="LangChain Demo", page_icon=":robot:")
-st.header("LangChain Demo")
+st.header("Conversation with Arvee about the Budget 2024")
 
 if "generated" not in st.session_state:
     st.session_state["generated"] = []
