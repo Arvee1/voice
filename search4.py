@@ -121,7 +121,7 @@ web_research_retriever = WebResearchRetriever.from_llm(
 )
 
 # Initialize question-answering chain with sources retrieval
-qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_research_retriever)
+# qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_research_retriever)
 
 # From here down is all the StreamLit UI.
 # st.set_page_config(page_title="LangChain Demo", page_icon=":robot:")
