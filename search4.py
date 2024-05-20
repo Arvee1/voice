@@ -18,11 +18,51 @@ from chromadb.utils import embedding_functions
 from langchain.chains import RetrievalQAWithSourcesChain
 from bs4 import BeautifulSoup
 import html2text
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 # EMBED_MODEL = "all-MiniLM-L6-v2"
 # embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
      # model_name=EMBED_MODEL
  # )
+
+CHROMA_DATA_PATH = "chroma_data/"
+EMBED_MODEL = "all-MiniLM-L6-v2"
+COLLECTION_NAME = "budget_docs"
+
+client = chromadb.PersistentClient(path=CHROMA_DATA_PATH)
+embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
+     model_name=EMBED_MODEL
+ )
+
+collection = client.get_or_create_collection(
+     name=COLLECTION_NAME,
+     embedding_function=embedding_func,
+     metadata={"hnsw:space": "cosine"},
+ )
+
+# Load VectorDB
+# if st.sidebar.button("Load OFSC Facsheets into Vector DB if loading the page for the first time.", type="primary"):
+@st.cache_resource
+def create_vector():
+      with open("budget_ai.txt") as f:
+          hansard = f.read()
+          text_splitter = RecursiveCharacterTextSplitter(
+              chunk_size=500,
+              chunk_overlap=20,
+              length_function=len,
+              is_separator_regex=False,
+          )
+           
+      texts = text_splitter.create_documents([hansard])
+      documents = text_splitter.split_text(hansard)[:len(texts)]
+     
+      collection.add(
+           documents=documents,
+           ids=[f"id{i}" for i in range(len(documents))],
+      )
+      f.close()
+
+create_vector()
 
 search = GoogleSearchAPIWrapper()
 
@@ -103,7 +143,16 @@ def get_text():
 user_input = get_text()
 
 if user_input:
-    user_input_question = "Who is the president of the United States?"
+    query_results = collection.query(
+          query_texts=[user_input],
+          # include=["documents", "embeddings"],
+          include=["documents"],
+          n_results=20,
+     )
+     augment_query = str(query_results["documents"])
+     user_input = user_input + ", " + augment_query
+     
+     user_input_question = "Who is the president of the United States?"
     # Query the QA chain with the user input question
     # result = qa_chain({"question": user_input_question})
     # Print out the results for the user query with both answer and source url that were used to generate the answer
