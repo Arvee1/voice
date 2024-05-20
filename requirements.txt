@@ -17,3 +17,4 @@ langchain_core
 google-api-python-client
 langchain
 streamlit-chat
+BeautifulSoup4
