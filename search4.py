@@ -8,6 +8,7 @@ from langchain_community.utilities import GoogleSearchAPIWrapper
 from langchain_core.tools import Tool
 from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.retrievers.web_research import WebResearchRetriever
+from langchain.vectorstores import Chroma
 
 search = GoogleSearchAPIWrapper()
 
@@ -17,6 +18,10 @@ web_research_retriever = WebResearchRetriever.from_llm(
     llm=llm,
     search=search,
 )
+
+# Setup a Vector Store for embeddings using Chroma DB
+vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=”./chroma_db_oai”)
+
 
 def top5_results(query):
     return search.results(query, 5)
