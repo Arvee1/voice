@@ -8,6 +8,7 @@ from streamlit_chat import message
 from langchain_community.llms import Replicate
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
+from langchain.memory import ConversationBufferWindowMemory
 from langchain_community.utilities import GoogleSearchAPIWrapper
 from langchain_core.tools import Tool
 from langchain.chains import RetrievalQAWithSourcesChain
@@ -86,7 +87,8 @@ def load_chain():
     # chain = ConversationChain(llm=llm)
     chain = ConversationChain(
             llm=llm,
-            memory = ConversationBufferMemory(llm=llm),
+            memory = ConversationBufferWindowMemory(k=5),
+            # memory = ConversationBufferMemory(llm=llm),
         )
     return chain
 
