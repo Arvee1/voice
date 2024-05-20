@@ -15,6 +15,7 @@ from langchain.retrievers.web_research import WebResearchRetriever
 from langchain.vectorstores import Chroma
 import chromadb
 from chromadb.utils import embedding_functions
+from langchain.chains import RetrievalQAWithSourcesChain
 
 # EMBED_MODEL = "all-MiniLM-L6-v2"
 # embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
@@ -76,6 +77,10 @@ web_research_retriever = WebResearchRetriever.from_llm(
      llm=llm,
      search=search,
 )
+
+# Initialize question-answering chain with sources retrieval
+qa_chain = RetrievalQAWithSourcesChain.from_chain_type(chat_model, retriever=web_research_retriever)
+
 
 # From here down is all the StreamLit UI.
 # st.set_page_config(page_title="LangChain Demo", page_icon=":robot:")
