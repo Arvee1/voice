@@ -128,7 +128,7 @@ qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_resear
 
 # From here down is all the StreamLit UI.
 # st.set_page_config(page_title="LangChain Demo", page_icon=":robot:")
-st.header("Conversation with Arvee about the Budget 2024")
+st.header("👨‍💻 Wazzup!!!! Conversation with Arvee about the Budget 2024")
 
 if "generated" not in st.session_state:
     st.session_state["generated"] = []
@@ -142,7 +142,7 @@ def get_text():
     input_text = st.text_input("You: ", key="input")
     return input_text
 
-st.title("👨‍💻 Wazzup!!!! What do you want to know about the Australian Federal Budget 2024?")
+# st.title("👨‍💻 Wazzup!!!! What do you want to know about the Australian Federal Budget 2024?")
 user_input = get_text()
 
 if user_input:
