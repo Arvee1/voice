@@ -65,10 +65,14 @@ vectorstore = client.get_or_create_collection(
  )
 
 # Setup a Retriever
+llm = Replicate(
+     model="meta/meta-llama-3-8b-instruct",
+     model_kwargs={"temperature": 0.75, "max_length": 500, "top_p": 1},
+)
 web_research_retriever = WebResearchRetriever.from_llm(
-    vectorstore=vectorstore,
-    llm=llm,
-    search=search,
+     vectorstore=vectorstore,
+     llm=llm,
+     search=search,
 )
 
 # From here down is all the StreamLit UI.
