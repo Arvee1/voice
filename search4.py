@@ -148,11 +148,11 @@ if user_input:
           # include=["documents", "embeddings"],
           include=["documents"],
           n_results=20,
-     )
-     augment_query = str(query_results["documents"])
-     user_input = user_input + ", " + augment_query
+    )
+    augment_query = str(query_results["documents"])
+    user_input = user_input + ", " + augment_query
      
-     user_input_question = "Who is the president of the United States?"
+    user_input_question = "Who is the president of the United States?"
     # Query the QA chain with the user input question
     # result = qa_chain({"question": user_input_question})
     # Print out the results for the user query with both answer and source url that were used to generate the answer
