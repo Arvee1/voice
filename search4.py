@@ -141,7 +141,7 @@ def get_text():
     input_text = st.text_input("You: ", key="input")
     return input_text
 
-
+st.title("👨‍💻 Wazzup!!!! What do you want to know about the Australian Federal Budget 2024?")
 user_input = get_text()
 
 if user_input:
