@@ -156,10 +156,10 @@ if user_input:
      
     user_input_question = "Who is the president of the United States?"
     # Query the QA chain with the user input question
-    result = qa_chain({"question": user_input_question})
+    # result = qa_chain({"question": user_input_question})
     # Print out the results for the user query with both answer and source url that were used to generate the answer
-    st.write(result["answer"])
-    st.write(result["sources"])
+    # st.write(result["answer"])
+    # st.write(result["sources"])
 
     # result = tool.run(user_input)
     # chain_prompt = user_input + " " + result
