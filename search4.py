@@ -83,10 +83,6 @@ web_research_retriever = WebResearchRetriever.from_llm(
 # Initialize question-answering chain with sources retrieval
 qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_research_retriever)
 
-# Print out the results for the user query with both answer and source url that were used to generate the answer
-st.write(result["answer"])
-st.write(result["sources"])
-
 # From here down is all the StreamLit UI.
 # st.set_page_config(page_title="LangChain Demo", page_icon=":robot:")
 st.header("LangChain Demo")
@@ -110,6 +106,9 @@ if user_input:
     user_input_question = "Who is the president of the United States?"
     # Query the QA chain with the user input question
     result = qa_chain({"question": user_input_question})
+    # Print out the results for the user query with both answer and source url that were used to generate the answer
+    st.write(result["answer"])
+    st.write(result["sources"])
 
     # result = tool.run(user_input)
     # chain_prompt = user_input + " " + result
