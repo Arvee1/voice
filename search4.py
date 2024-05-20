@@ -16,6 +16,7 @@ from langchain.vectorstores import Chroma
 import chromadb
 from chromadb.utils import embedding_functions
 from langchain.chains import RetrievalQAWithSourcesChain
+from bs4 import BeautifulSoup
 
 # EMBED_MODEL = "all-MiniLM-L6-v2"
 # embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
