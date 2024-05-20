@@ -12,6 +12,7 @@ from langchain_core.tools import Tool
 from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.retrievers.web_research import WebResearchRetriever
 from langchain.vectorstores import Chroma
+import chromadb
 from chromadb.utils import embedding_functions
 
 # EMBED_MODEL = "all-MiniLM-L6-v2"
