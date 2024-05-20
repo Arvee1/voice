@@ -87,9 +87,9 @@ def load_chain():
     # chain = ConversationChain(llm=llm)
     chain = ConversationChain(
             llm=llm,
-            # memory = ConversationBufferWindowMemory(k=3),
+            memory = ConversationBufferWindowMemory(k=2),
             # memory = ConversationSummaryBufferMemory(llm=llm),
-            memory = ConversationBufferMemory(llm=llm),
+            # memory = ConversationBufferMemory(llm=llm),
         )
     return chain
 
