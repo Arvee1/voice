@@ -48,7 +48,6 @@ def load_chain():
 
 chain = load_chain()
 # Setup a Vector Store for embeddings using Chroma DB
-# vectorstore = Chroma(embedding_function=embedding_func, persist_directory="./chroma_db_oai")
 CHROMA_DATA_PATH = "chroma_data/"
 EMBED_MODEL = "all-MiniLM-L6-v2"
 COLLECTION_NAME = "search_docs"
@@ -58,11 +57,13 @@ embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
      model_name=EMBED_MODEL
  )
 
-vectorstore = client.get_or_create_collection(
-     name=COLLECTION_NAME,
-     embedding_function=embedding_func,
-     metadata={"hnsw:space": "cosine"},
- )
+# vectorstore = client.get_or_create_collection(
+     # name=COLLECTION_NAME,
+     # embedding_function=embedding_func,
+     # metadata={"hnsw:space": "cosine"},
+ # )
+
+vectorstore = Chroma(embedding_function=embedding_func, persist_directory="./chroma_db_oai")
 
 # Setup a Retriever
 llm = Replicate(
