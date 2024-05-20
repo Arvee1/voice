@@ -6,8 +6,17 @@ from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
 from langchain_community.utilities import GoogleSearchAPIWrapper
 from langchain_core.tools import Tool
+from langchain.chains import RetrievalQAWithSourcesChain
 
 search = GoogleSearchAPIWrapper()
+
+# Setup a Retriever
+web_research_retriever = WebResearchRetriever.from_llm(
+    vectorstore=vectorstore,
+    llm=llm,
+    search=search,
+)
+
 def top5_results(query):
     return search.results(query, 5)
 
