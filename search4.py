@@ -38,7 +38,7 @@ def load_chain():
 
 chain = load_chain()
 # Setup a Vector Store for embeddings using Chroma DB
-vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=”./chroma_db_oai”)
+vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory="./chroma_db_oai")
 
 # Setup a Retriever
 web_research_retriever = WebResearchRetriever.from_llm(
