@@ -7,6 +7,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain_community.utilities import GoogleSearchAPIWrapper
 from langchain_core.tools import Tool
 from langchain.chains import RetrievalQAWithSourcesChain
+from langchain.retrievers.web_research import WebResearchRetriever
 
 search = GoogleSearchAPIWrapper()
 
