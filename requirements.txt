@@ -18,3 +18,4 @@ google-api-python-client
 langchain
 streamlit-chat
 BeautifulSoup4
+html2text
