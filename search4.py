@@ -47,7 +47,7 @@ search=search,
 )
 
 # Initialize question-answering chain with sources retrieval
-qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_research_retriever)
+qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_research_retriever, memory=memory)
 
 def get_text():
     # input_text = st.text_input("You: ", "Hello, how are you?", key="input")
