@@ -99,7 +99,7 @@ def load_chain():
         )
     return chain
 
-chain = load_chain()
+# chain = load_chain()
 # Setup a Vector Store for embeddings using Chroma DB
 CHROMA_DATA_PATH = "chroma_data/"
 EMBED_MODEL = "all-MiniLM-L6-v2"
@@ -154,21 +154,22 @@ def get_text():
 user_input = get_text()
 
 if user_input:
-    query_results = collection.query(
-          query_texts=[user_input],
+    # query_results = collection.query(
+          # query_texts=[user_input],
           # include=["documents", "embeddings"],
-          include=["documents"],
-          n_results=15,
-    )
-    augment_query = str(query_results["documents"])
-    chain_input = user_input + ", " + augment_query
+          # include=["documents"],
+          # n_results=15,
+    # )
+    # augment_query = str(query_results["documents"])
+    # chain_input = user_input + ", " + augment_query
      
-    user_input_question = "Who is the president of the United States?"
+    # user_input_question = "Who is the president of the United States?"
     # Query the QA chain with the user input question
-    result = qa_chain({"question": user_input_question})
+    # result = qa_chain({"question": user_input_question})
+    result = qa_chain({"question": user_input})
     # Print out the results for the user query with both answer and source url that were used to generate the answer
-    # st.write(result["answer"])
-    # st.write(result["sources"])
+    st.write(result["answer"])
+    st.write(result["sources"])
 
     # result = tool.run(user_input)
     # chain_prompt = user_input + " " + result
@@ -180,8 +181,8 @@ if user_input:
     # st.session_state.generated.append(output)
     # st.write(st.session_state)
 
-if st.session_state["generated"]:
+# if st.session_state["generated"]:
 
-    for i in range(len(st.session_state["generated"]) - 1, -1, -1):
-        message(st.session_state["generated"][i], key=str(i))
-        message(st.session_state["past"][i], is_user=True, key=str(i) + "_user")
+    # for i in range(len(st.session_state["generated"]) - 1, -1, -1):
+        # message(st.session_state["generated"][i], key=str(i))
+        # message(st.session_state["past"][i], is_user=True, key=str(i) + "_user")
