@@ -36,6 +36,7 @@ vectorstore = Chroma(embedding_function=HuggingFaceEmbeddings(model_name=embeddi
 
 # Memory for Retriever
 memory = ConversationSummaryBufferMemory(llm=llm, input_key='question', output_key='answer', return_messages=True)
+Search
 
 search = GoogleSearchAPIWrapper()
 
