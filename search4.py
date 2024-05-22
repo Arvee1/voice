@@ -117,8 +117,8 @@ embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
  # )
 
 # vectorstore = Chroma(embedding_function=embedding_func, persist_directory="./chroma_db_oai")
-
-vectorstore = Chroma(embedding_function=HuggingFaceEmbeddings(), persist_directory="./chroma_db_oai")
+embeddings_model_name = "sentence-transformers/all-MiniLM-L6-v2"
+vectorstore = Chroma(embedding_function=HuggingFaceEmbeddings(model_name=embeddings_model_name), persist_directory="./chroma_db_oai")
 
 # Setup a Retriever
 llm = Replicate(
