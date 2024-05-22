@@ -117,7 +117,7 @@ embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
 
 # vectorstore = Chroma(embedding_function=embedding_func, persist_directory="./chroma_db_oai")
 
-vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=”./chroma_db_oai”)
+vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory="./chroma_db_oai")
 
 # Setup a Retriever
 llm = Replicate(
