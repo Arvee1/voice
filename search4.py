@@ -23,6 +23,7 @@ from langchain.chains import RetrievalQAWithSourcesChain
 from bs4 import BeautifulSoup
 import html2text
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.embeddings import OpenAIEmbeddings
 
 # EMBED_MODEL = "all-MiniLM-L6-v2"
 # embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
@@ -114,7 +115,9 @@ embedding_func = embedding_functions.SentenceTransformerEmbeddingFunction(
      # metadata={"hnsw:space": "cosine"},
  # )
 
-vectorstore = Chroma(embedding_function=embedding_func, persist_directory="./chroma_db_oai")
+# vectorstore = Chroma(embedding_function=embedding_func, persist_directory="./chroma_db_oai")
+
+vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=”./chroma_db_oai”)
 
 # Setup a Retriever
 llm = Replicate(
