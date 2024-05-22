@@ -46,6 +46,9 @@ llm=llm,
 search=search,
 )
 
+# Initialize question-answering chain with sources retrieval
+qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_research_retriever)
+
 def get_text():
     # input_text = st.text_input("You: ", "Hello, how are you?", key="input")
     input_text = st.text_input("You: ", key="input")
@@ -54,10 +57,7 @@ def get_text():
 # st.title("👨‍💻 Wazzup!!!! What do you want to know about the Australian Federal Budget 2024?")
 user_input = get_text()
 
-if user_input:
-     # Initialize question-answering chain with sources retrieval
-     qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_research_retriever)
-     
+if user_input:     
      # Query the QA chain with the user input question
      result = qa_chain({"question": user_input})
      
