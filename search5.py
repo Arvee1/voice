@@ -15,7 +15,7 @@ from langchain.chains import RetrievalQAWithSourcesChain
 
 
 # Initialize the LLM
-llm = ChatOpenAI(model_name=”gpt-3.5-turbo-16k”, temperature=0, streaming=True)
+llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k", temperature=0, streaming=True)
 
 # Setup a Vector Store for embeddings using Chroma DB
 vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=”./chroma_db_oai”)
