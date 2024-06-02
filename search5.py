@@ -9,13 +9,13 @@ from langchain.chains import RetrievalQAWithSourcesChain
 
 
 # Load environment variables for API keys
-os.environ["OPENAI_API_KEY"] = "[INSERT YOUR OPENAI API KEY HERE]"
-os.environ["GOOGLE_CSE_ID"] = "[INSERT YOUR GOOGLE CSE ID HERE]"
-os.environ["GOOGLE_API_KEY"] = "[INSERT YOUR GOOGLE API KEY HERE]"
+# os.environ["OPENAI_API_KEY"] = "[INSERT YOUR OPENAI API KEY HERE]"
+# os.environ["GOOGLE_CSE_ID"] = "[INSERT YOUR GOOGLE CSE ID HERE]"
+# os.environ["GOOGLE_API_KEY"] = "[INSERT YOUR GOOGLE API KEY HERE]"
 
 
 # Initialize the LLM
-llm = ChatOpenAI(model_name=”gpt-3.5-turbo-16k”, temperature=0, streaming=True,openai_api_key=”your_api_key”)
+llm = ChatOpenAI(model_name=”gpt-3.5-turbo-16k”, temperature=0, streaming=True)
 
 # Setup a Vector Store for embeddings using Chroma DB
 vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=”./chroma_db_oai”)
