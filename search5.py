@@ -49,5 +49,5 @@ qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_resear
 result = qa_chain({"question": user_input_question})
 
 # Print out the results for the user query with both answer and source url that were used to generate the answer
-print(result["answer"])
-print(result["sources"])
+st.write(result["answer"])
+st.write(result["sources"])
