@@ -40,7 +40,7 @@ search=search,
 )
 
 # Define the User Input
-user_input = "How do Planes work?"
+user_input_question = "How do Planes work?"
 
 # Initialize question-answering chain with sources retrieval
 qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_research_retriever)
