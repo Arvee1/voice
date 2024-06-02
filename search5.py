@@ -2,7 +2,7 @@ __import__('pysqlite3')
 import sys
 import pysqlite3
 sys.modules['sqlite3'] = sys.modules["pysqlite3"]
-
+from langchain.vectorstores import Chroma
 import os
 from langchain.chat_models.openai import ChatOpenAI
 from langchain.embeddings import OpenAIEmbeddings
