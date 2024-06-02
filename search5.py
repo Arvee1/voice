@@ -18,7 +18,7 @@ from langchain.chains import RetrievalQAWithSourcesChain
 llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k", temperature=0, streaming=True)
 
 # Setup a Vector Store for embeddings using Chroma DB
-vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=”./chroma_db_oai”)
+vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory="./chroma_db_oai")
 
 # Initialize memory for the retriever
 memory = ConversationSummaryBufferMemory(llm=llm, input_key='question', output_key='answer', return_messages=True)
