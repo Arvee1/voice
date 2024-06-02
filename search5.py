@@ -43,7 +43,7 @@ search=search,
 user_input = "How do Planes work?"
 
 # Initialize question-answering chain with sources retrieval
-qa_chain = RetrievalQAWithSourcesChain.from_chain_type(chat_model, retriever=web_research_retriever)
+qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_research_retriever)
 
 # Query the QA chain with the user input question
 result = qa_chain({"question": user_input_question})
