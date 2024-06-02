@@ -27,8 +27,8 @@ vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=".
 
 # Initialize memory for the retriever
 memory = ConversationSummaryBufferMemory(llm=llm, input_key='question', output_key='answer', return_messages=True)
-Search
 
+# Search
 # Initialize Google Search API for Web Search
 search = GoogleSearchAPIWrapper()
 
