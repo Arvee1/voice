@@ -46,8 +46,24 @@ user_input_question = "How do Planes work?"
 qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm, retriever=web_research_retriever)
 
 # Query the QA chain with the user input question
-result = qa_chain({"question": user_input_question})
+# result = qa_chain({"question": user_input_question})
 
 # Print out the results for the user query with both answer and source url that were used to generate the answer
-st.write(result["answer"])
-st.write(result["sources"])
+# st.write(result["answer"])
+# st.write(result["sources"])
+
+def get_text():
+    # input_text = st.text_input("You: ", "Hello, how are you?", key="input")
+    input_text = st.text_input("You: ", key="input")
+    return input_text
+
+# st.title("👨‍💻 Wazzup!!!! What do you want to know about the Australian Federal Budget 2024?")
+user_input = get_text()
+
+if user_input:     
+     # Query the QA chain with the user input question
+     result = qa_chain({"question": user_input})
+     
+     # Print out the results for the user query with both answer and source url that were used to generate the answer
+     st.write(result["answer"])
+     st.write(result["sources"])
